@@ -37,7 +37,8 @@ const mascotas = [
   },
 ];
 
-//! 1.- Importar todas nuestras bibliotecas
+//! 1.- Importar todas nuestras bibliotecas (express y dotenv)
+require("dotenv").config();
 const express = require("express");
 
 //! 2.- Hacer instancia de la aplicación de express y <>
@@ -120,6 +121,11 @@ app.delete("/mascota/:indice", function (req, res) {
 });
 
 //! 5.- Levantar el servidor
-app.listen(3001, () => {
-  console.log("La aplicación corre en el puerto:" + 3001);
+
+console.log();
+app.listen(process.env.PORT, () => {
+  console.log(`
+  Bienvenido ${process.env.NOMBRE}.
+  La aplicación corre en el puerto: ${process.env.PORT}
+  `);
 });
