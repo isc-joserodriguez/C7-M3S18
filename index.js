@@ -56,8 +56,6 @@ app.get("/", (req, res) => {
 app.post("/mascota", (req, res) => {
   const { tipo, edad, color, peso, nombre } = req.body;
   mascotas.push({ tipo, edad, color, peso, nombre });
-
-  const resp = mongo.find("query");
   res.json({ mensaje: "Mascota registrada", data: mascotas });
 });
 
