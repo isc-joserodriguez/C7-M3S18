@@ -37,7 +37,6 @@ const mascotas = [
   },
 ];
 
-const { json } = require("express");
 //! 1.- Importar todas nuestras bibliotecas
 const express = require("express");
 
@@ -103,6 +102,8 @@ app.put("/mascota/:nombre", (req, res) => {
   };
 
   res.json({ mascotaEditada: mascotas[indice], todasMascotas: mascotas });
+
+  //mongodb.update({id}, {body})
 });
 
 //DELETE
