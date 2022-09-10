@@ -83,6 +83,7 @@ app.put("/mascota/:nombre", (req, res) => {
 
   if (indice === -1) {
     res.json({ error: "No se encontró a la mascota" });
+    return;
   }
 
   const {
