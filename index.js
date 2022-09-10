@@ -49,7 +49,7 @@ app.use(express.json());
 
 //! 4.- Declarar las rutas
 app.get("/", (req, res) => {
-  res.json({ mensaje: "Hola" });
+  res.json({ mensaje: "Hola v1.1" });
 });
 
 // CREATE - POST
