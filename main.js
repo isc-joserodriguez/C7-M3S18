@@ -21,8 +21,23 @@ const mascotas = [
     peso: "3 kg",
     nombre: "Michi",
   },
+  {
+    tipo: "Perro",
+    edad: 5,
+    color: "Negro",
+    peso: "8 kg",
+    nombre: "Cuco",
+  },
+  {
+    tipo: "Gato",
+    edad: 2,
+    color: "Marrón",
+    peso: "3 kg",
+    nombre: "Felix",
+  },
 ];
 
+const { json } = require("express");
 //! 1.- Importar todas nuestras bibliotecas
 const express = require("express");
 
@@ -41,6 +56,8 @@ app.get("/", (req, res) => {
 app.post("/mascota", (req, res) => {
   const { tipo, edad, color, peso, nombre } = req.body;
   mascotas.push({ tipo, edad, color, peso, nombre });
+
+  const resp = mongo.find("query");
   res.json({ mensaje: "Mascota registrada", data: mascotas });
 });
 
@@ -48,6 +65,56 @@ app.post("/mascota", (req, res) => {
 app.get("/mascota", (req, res) => {
   console.log("GET:", req.body);
   res.json({ mascotas });
+});
+
+//UPDATE - PUT
+app.put("/mascota/:nombre", (req, res) => {
+  /* let indice = -1;
+  //Buscar y editar.
+  for (let i = 0; i < mascotas.length; i++) {
+    if (mascotas[i].nombre === req.params.nombre) {
+      indice = i;
+    }
+  } */
+
+  const indice = mascotas.findIndex(
+    (mascota) => mascota.nombre === req.params.nombre
+  );
+
+  if (indice === -1) {
+    res.json({ error: "No se encontró a la mascota" });
+  }
+
+  const {
+    tipo = mascotas[indice].tipo,
+    edad = mascotas[indice].edad,
+    color = mascotas[indice].color,
+    peso = mascotas[indice].peso,
+    nombre = mascotas[indice].nombre,
+  } = req.body;
+
+  mascotas[indice] = {
+    tipo,
+    edad,
+    color,
+    peso,
+    nombre,
+  };
+
+  res.json({ mascotaEditada: mascotas[indice], todasMascotas: mascotas });
+});
+
+//DELETE
+app.delete("/mascota/:indice", function (req, res) {
+  const [eliminado] = mascotas.splice(+req.params.indice, 1);
+  if (!eliminado) {
+    res.json({ error: "No existe este elemento" });
+    return;
+  }
+  res.json({
+    eliminado,
+    mascotas,
+  });
 });
 
 //! 5.- Levantar el servidor
