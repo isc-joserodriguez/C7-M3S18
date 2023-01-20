@@ -1,5 +1,5 @@
 /**
- * 1.- Importar Express y sus funciones
+ * 1.- Importar Express
  * 2.- Hacer instancia de la aplicación
  * 3.- Middlewares
  * 4.- Declarar las rutas
